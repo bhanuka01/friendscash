@@ -97,7 +97,7 @@ const editStudent = async (id) => {
         document.getElementById("id").value = res.data[0].id;
         document.getElementById("edit-name").value = res.data[0].task;
         document.getElementById("edit-price").value = res.data[0].price;
-        document.getElementById("edit-price").value = res.data[0].to;
+        document.getElementById("edit-to").value = res.data[0].to;
 
         // document.getElementById("edit-age").value = res.data[0].age;
         // document.getElementById("edit-country").value = res.data[0].country;

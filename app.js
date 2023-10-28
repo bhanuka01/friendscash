@@ -8,6 +8,7 @@ let save = document.querySelector("#save");
 save.addEventListener("click", async (e) => {
     e.preventDefault();
     let task = document.querySelector("#task").value;
+    let to = document.querySelector("#task").value;
     let price = document.querySelector("#price").value;
     // let status = document.querySelector("#status").value;
     // let age = document.querySelector("#age").value;
@@ -17,7 +18,8 @@ save.addEventListener("click", async (e) => {
     let res = await database.from("todo").insert({
         task,
         status: false,
-        price
+        price,
+        to
         // status: false
         // age: age,
         // country: country
@@ -28,6 +30,7 @@ save.addEventListener("click", async (e) => {
         save.setAttribute("disabled", false);
         task = "";
         price = "";
+        to="";
         // status: "";
         // age = "";
         // country = "";
@@ -60,6 +63,7 @@ const getStudent = async () => {
             tr += `<tr>
          <td>${parseInt(i) + 1}</td>
          <td>${res.data[i].task}</td>
+         <td>${res.data[i].to}</td>
          <td>${res.data[i].price}</td>
          <td><button class="btn btn-outline-primary" data-bs-toggle="modal"
          onclick='editStudent(${res.data[i].id})' data-bs-target="#editModel">Edit</button></td>
@@ -93,6 +97,7 @@ const editStudent = async (id) => {
         document.getElementById("id").value = res.data[0].id;
         document.getElementById("edit-name").value = res.data[0].task;
         document.getElementById("edit-price").value = res.data[0].price;
+        document.getElementById("edit-price").value = res.data[0].to;
 
         // document.getElementById("edit-age").value = res.data[0].age;
         // document.getElementById("edit-country").value = res.data[0].country;
@@ -105,12 +110,13 @@ update.addEventListener("click", async () => {
     let id = document.getElementById("id").value;
     let task = document.getElementById("edit-name").value
     let price = document.getElementById("edit-price").value
+    let to = document.getElementById("edit-to").value
     // let age = document.getElementById("edit-age").value;
     // let country = document.getElementById("edit-country").value;
     update.innerText = "Updateing...."
     update.setAttribute("disabled", true);
     const res = await database.from("todo").update({
-        task,price,
+        task,price,to,
         // age, country
     }).eq("id", id)
 
@@ -120,7 +126,7 @@ update.addEventListener("click", async () => {
         update.setAttribute("disabled", false);
         task = "";
         price = "";
-        // age = "";
+        to = "";
         // country = "";
         getStudent();
         getTotalCount();
